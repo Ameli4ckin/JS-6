@@ -66,6 +66,10 @@
   также должен меняться.
   */
 
+  const spanEl = document.querySelector('span');
+  document.getElementById('from').addEventListener('input', event => {
+    spanEl.textContent = event.target.value;
+  });
 
   /*
   2. При клике на кнопку с классом messageBtn необходимо элементу с классом
@@ -74,6 +78,11 @@
   2) поставить данному элементу стиль visibility в значение 'visible'.
    */
 
+  const messageEl = document.querySelector('.message');
+  document.querySelector('.messageBtn').addEventListener('click', event => {
+    messageEl.classList.add('animate__animated', 'animate__fadeInLeftBig');
+    messageEl.style.visibility = 'visible';
+  });
 
   /*
   3. Необходимо при отправке формы проверить, заполнены ли все поля в этой
@@ -86,6 +95,26 @@
   данному полю).
   Если поле было чем-либо заполнено, подсветку (класс error) необходимо убрать.
    */
+
+  const formEl = document.querySelector('form');
+  const formControlEls = formEl.querySelectorAll('input, select');
+  formEl.addEventListener('submit', event => {
+    formControlEls.forEach(formControlEl => {
+      if (formControlEl.value === "") {
+        formControlEl.classList.add('error')
+        event.preventDefault();
+      }
+    });
+  });
+
+  formEl.addEventListener('input', event => {
+    if (!event.target.classList.contains('form-control')) {
+      return;
+    }
+    event.target.value === ''
+      ? event.target.classList.add('error')
+      : event.target.classList.remove('error');
+  });
 
 
 </script>
